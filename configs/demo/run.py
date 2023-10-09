@@ -11,7 +11,7 @@ if __name__ == "__m5_main__":
 
     system.clk_domain = SrcClockDomain()
     # system.clk_domain.clock = '2GHz'
-    system.clk_domain.clock = "4GHz"
+    system.clk_domain.clock = "1GHz"
     system.clk_domain.voltage_domain = VoltageDomain()
 
     system.mem_mode = "timing"
@@ -38,7 +38,7 @@ if __name__ == "__m5_main__":
     system.mem_ctrl.port = system.membus.mem_side_ports
 
     # Workload to run on the cpu
-    binary = "workloads/bin/x86/main"
+    binary = "workloads/hello"
 
     # for gem5 V21 and beyond
     system.workload = SEWorkload.init_compatible(binary)
