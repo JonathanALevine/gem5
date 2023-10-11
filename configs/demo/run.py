@@ -1,6 +1,7 @@
 import m5
 from m5.objects import *
 from m5.objects import DDR4_2400_8x8
+from m5.objects import DDR5_6400_4x8
 import time
 
 
@@ -10,14 +11,14 @@ if __name__ == "__m5_main__":
     system = System()
 
     system.clk_domain = SrcClockDomain()
-    # system.clk_domain.clock = '2GHz'
-    system.clk_domain.clock = "1GHz"
+    system.clk_domain.clock = "5GHz"
     system.clk_domain.voltage_domain = VoltageDomain()
 
-    system.mem_mode = "timing"
+    system.mem_mode = "atomic"
     system.mem_ranges = [AddrRange("8192MB")]
 
-    system.cpu = X86TimingSimpleCPU()
+    # system.cpu = X86TimingSimpleCPU()
+    system.cpu = X86AtomicSimpleCPU()
 
     system.membus = SystemXBar()
 
@@ -32,13 +33,12 @@ if __name__ == "__m5_main__":
     system.system_port = system.membus.cpu_side_ports
 
     system.mem_ctrl = MemCtrl()
-    # system.mem_ctrl.dram = DDR3_1600_8x8()
-    system.mem_ctrl.dram = DDR4_2400_8x8()
+    system.mem_ctrl.dram = DDR5_6400_4x8()
     system.mem_ctrl.dram.range = system.mem_ranges[0]
     system.mem_ctrl.port = system.membus.mem_side_ports
 
     # Workload to run on the cpu
-    binary = "workloads/hello"
+    binary = "workloads/main"
 
     # for gem5 V21 and beyond
     system.workload = SEWorkload.init_compatible(binary)
@@ -60,4 +60,4 @@ if __name__ == "__m5_main__":
     )
     end_time = time.time()
     print(f"Execution time: {end_time-str_time} seconds")
-    print(f"Execution time: {(end_time-str_time)/60} seconds")
+    print(f"Execution time: {(end_time-str_time)/60} mins")
