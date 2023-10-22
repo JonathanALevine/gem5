@@ -17,7 +17,6 @@ if __name__ == "__m5_main__":
     system.mem_mode = "atomic"
     system.mem_ranges = [AddrRange("8192MB")]
 
-    # system.cpu = X86TimingSimpleCPU()
     system.cpu = X86AtomicSimpleCPU()
 
     system.membus = SystemXBar()
