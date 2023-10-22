@@ -1,0 +1,3 @@
+#!/bin/bash
+
+build/X86/gem5.fast configs/demo/run.py
