@@ -5,4 +5,6 @@ from m5.objects import DDR5_6400_4x8
 
 
 if __name__ == "__m5_main__":
+    system = System()
+
     print("Hello World!")
